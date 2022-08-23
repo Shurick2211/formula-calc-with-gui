@@ -6,7 +6,7 @@ import java.util.HashMap;
  * Class for test.
  */
 public class Test extends Assignment11Part1 {
-  private HashMap<String,Double> testVars = new HashMap<>();
+  private final HashMap<String,Double> testVars = new HashMap<>();
   {
     testVars.put("a",2d);
     testVars.put("b",1d);
@@ -26,14 +26,10 @@ public class Test extends Assignment11Part1 {
       System.out.println("---------------------------");
       System.out.println("TestException: " + test.testException());
       System.out.println("---------------------------");
-      System.out.println("TestExceptionFormula: " + test.testExceptionFormula("4.0+a/2*b^2+23+"));
+      System.out.println("TestExceptionFormula: " + (test.testExceptionFormula("4.0+a/2*b^2+23+")
+              && test.testExceptionFormula("4.0+a/2*b^2+*23") && test.testExceptionFormula("/4.0+a/2*b^2+23")));
       System.out.println("---------------------------");
-      System.out.println(test.calculate( "-3 * a+3.5/0.5+ b", test.testVars));
-      System.out.println(test.calculate( "a^0+0.3*5/0.5+b/a", test.testVars));
-      System.out.println(test.calculate( " - a ^2*( - 4)", test.testVars));
-      System.out.println(test.calculate( "(-a+b)*2", test.testVars));
-      System.out.println(test.calculate( "-2.2+2", null));
-      System.out.println("---------------------------");
+
 
       for (int i = 1; i < 5; i++) {
         String[] testArgs= {"a*sin(30)+b*sqrt(4)", "a="+i, "b="+(i+1)};
@@ -54,11 +50,6 @@ public class Test extends Assignment11Part1 {
     return false;
   }
 
-  public boolean test() throws Exception {
-    return testMain() && testBrackets() && testNullPointException() && testNumberFormatException()
-            && testException() && testExceptionFormula("4.0+a/2*b^2+23+")
-            && testExceptionFormula("4.0+a/2*b^2+*23") && testExceptionFormula("/4.0+a/2*b^2+23");
-  }
 
   private  boolean testException() {
     try {

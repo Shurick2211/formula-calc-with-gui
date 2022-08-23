@@ -17,7 +17,7 @@ public class Assignment11Part1 {
   /** The start formula for calculation */
   private String startFormula;
   /**The entity for Main*/
-  static private Assignment11Part1 entity = new Assignment11Part1();
+  static private final Assignment11Part1 entity = new Assignment11Part1();
 
   /**
    * The main method.
