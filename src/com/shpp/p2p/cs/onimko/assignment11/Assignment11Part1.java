@@ -43,7 +43,8 @@ public class Assignment11Part1 {
   /**
    * Method checks that an input formula equals
    * the formula of last calculated.
-   * If it is true - don't parse the input formula.
+   * If it is true - don't parse the input formula,
+   * else formula - parse.
    * @param formula - the input formula.
    */
   private void checksOldFormula(String formula) throws Exception {
@@ -166,7 +167,7 @@ public class Assignment11Part1 {
    * @param formula the input formula
    * @return string formula consist with sign of math operations.
    */
-  private String parseFormula(String formula) {
+  private String parseFormula(String formula) throws Exception {
     System.out.println("Parse formula");
     clearArrays();
     String  function;
@@ -218,12 +219,14 @@ public class Assignment11Part1 {
    * @param i the start position function in the formula.
    * @return the function's name
    */
-  private String getFunctionName(String formula, int i) {
+  private String getFunctionName(String formula, int i) throws Exception {
     StringBuilder operation = new StringBuilder();
     while (formula.charAt(i) != '('){
       operation.append(formula.charAt(i));
       i++;
+      if (i == formula.length()) throw new Exception("Argument of function must be in the brackets - ()!");
     }
+    Validation.validateFunction(operation.toString().toLowerCase());
     return operation.toString().toLowerCase();
   }
 

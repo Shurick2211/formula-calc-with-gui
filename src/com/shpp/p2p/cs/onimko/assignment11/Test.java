@@ -6,12 +6,16 @@ import java.util.HashMap;
  * Class for test.
  */
 public class Test extends Assignment11Part1 {
+  /**Test data*/
   private final HashMap<String,Double> testVars = new HashMap<>();
   {
     testVars.put("a",2d);
     testVars.put("b",1d);
   }
 
+  /**
+   * Start method for test
+   */
   public static void main(String[] args)  {
     try {
       Test test = new Test();
@@ -30,12 +34,21 @@ public class Test extends Assignment11Part1 {
       System.out.println("TestExceptionFormula: " + (test.testExceptionFormula("4.0+a/2*b^2+23+")
               && test.testExceptionFormula("4.0+a/2*b^2+*23") && test.testExceptionFormula("/4.0+a/2*b^2+23")));
       System.out.println("---------------------------");
+      System.out.println("TestExceptionFunction: " + test.testExceptionFunction());
+      System.out.println("---------------------------");
+      System.out.println("TestExceptionFunction: " + test.testExceptionFunctionSyntax());
+      System.out.println("---------------------------");
 
-      testArgs= new String[] {"log10(a)", "a=100", "b=2"};
+      // test some formulas
+      testArgs= new String[] {"log10(a)", "a=100"};
       Assignment11Part1.main(testArgs);
       System.out.println("---------------------------");
 
-      testArgs= new String[] {"log2(b)", "a=10", "b="+(Math.E)};//
+      testArgs= new String[] {"log2(b)", "b=" + Math.E};//
+      Assignment11Part1.main(testArgs);
+      System.out.println("---------------------------");
+
+      testArgs= new String[] {"2+2*2"};
       Assignment11Part1.main(testArgs);
       System.out.println("---------------------------");
 
@@ -47,6 +60,26 @@ public class Test extends Assignment11Part1 {
       e.printStackTrace();
     }
 
+  }
+
+  private boolean testExceptionFunctionSyntax() {
+    try {
+      calculate("sin60",null);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      return true;
+    }
+    return false;
+  }
+
+  private boolean testExceptionFunction() {
+    try {
+      calculate("loga10(10)",null);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      return true;
+    }
+    return false;
   }
 
   private boolean testExceptionFormula(String formula) {

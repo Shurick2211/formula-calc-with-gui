@@ -1,5 +1,6 @@
 package com.shpp.p2p.cs.onimko.assignment11;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -98,5 +99,13 @@ public class Validation {
       start = end;
     }
     return args;
+  }
+
+  /**
+   * Method for validate math function in the input formula.
+   * @param fun - ArrayList function in the formula.
+   */
+  public static void validateFunction(String fun) throws Exception {
+      if (Operation.FUNCTIONS.get(fun) == null) throw new Exception("Function: <"+fun+"> - is invalid!");
   }
 }
