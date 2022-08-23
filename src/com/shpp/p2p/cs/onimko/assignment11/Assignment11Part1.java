@@ -142,13 +142,13 @@ public class Assignment11Part1 {
         temp.add(nums.get(tmp));
         nums.remove(tmp);
       }
-      if (indexEnd-indexStart == 1) {
+      if (indexEnd-indexStart == 1 && formula.charAt(indexStart-1) == '@') {
         nums.add(tmp, Operation.FUNCTIONS.get(functions.get(Validation.counter(formula,'@')-1)).calculate(temp.get(0)));
         indexStart--;
       }
       else {
         nums.add(tmp, doQueOfOperation(formula.substring(indexStart + 1, indexEnd), temp));
-        if (formula.charAt(indexStart-1) == '@'){
+        if (indexStart > 0 && formula.charAt(indexStart-1) == '@'){
           indexStart++;
           indexEnd--;
         }
@@ -187,7 +187,7 @@ public class Assignment11Part1 {
       }
       if (Character.isDigit(el) || el == '.') number.append(el);
       if (Character.isLetter(el)) {
-        if(Character.isLetter(formula.charAt(i+1))) {
+        if(i < formula.length()-1 && Character.isLetter(formula.charAt(i+1))) {
           function = getFunctionName(formula,i);
           functions.add(function);
           operation.append('@');
