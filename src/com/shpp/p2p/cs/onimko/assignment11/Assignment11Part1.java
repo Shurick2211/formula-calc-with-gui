@@ -168,8 +168,7 @@ public class Assignment11Part1 {
    */
   private String parseFormula(String formula) {
     System.out.println("Parse formula");
-    numbers.clear();
-    numVars.clear();
+    clearArrays();
     String  function;
     StringBuilder number = new StringBuilder();
     StringBuilder operation = new StringBuilder();
@@ -247,5 +246,14 @@ public class Assignment11Part1 {
       variables.set(numVar, temp);
     }
     return variables;
+  }
+
+  /**
+   * Method clears arrays (ArrayList) before parsing formula.
+   */
+  private void clearArrays() {
+    numbers.clear();
+    numVars.clear();
+    functions.clear();
   }
 }

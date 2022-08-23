@@ -15,6 +15,7 @@ public class Test extends Assignment11Part1 {
   public static void main(String[] args)  {
     try {
       Test test = new Test();
+      String[] testArgs;
       System.out.println("---------------------------");
       System.out.println("MainTest: " + test.testMain());
       System.out.println("---------------------------");
@@ -30,9 +31,16 @@ public class Test extends Assignment11Part1 {
               && test.testExceptionFormula("4.0+a/2*b^2+*23") && test.testExceptionFormula("/4.0+a/2*b^2+23")));
       System.out.println("---------------------------");
 
+      testArgs= new String[] {"log10(a)", "a=100", "b=2"};
+      Assignment11Part1.main(testArgs);
+      System.out.println("---------------------------");
+
+      testArgs= new String[] {"log2(b)", "a=10", "b="+(Math.E)};//
+      Assignment11Part1.main(testArgs);
+      System.out.println("---------------------------");
 
       for (int i = 1; i < 5; i++) {
-        String[] testArgs= {"a*sin(30)+b*sqrt(4)", "a="+i, "b="+(i+1)};
+        testArgs= new String[]{"a*sin(30)+b*sqrt(4)", "a=" + i, "b=" + (i + 1)};
         Assignment11Part1.main(testArgs);
       }
     } catch (Exception e) {
