@@ -16,6 +16,8 @@ public class Assignment11Part1 {
   private String parsedFormula;
   /** The start formula for calculation */
   private String startFormula;
+  /**The entity for Main*/
+  static private Assignment11Part1 entity = new Assignment11Part1();
 
   /**
    * The main method.
@@ -24,13 +26,11 @@ public class Assignment11Part1 {
    * @param args the input array of string
    */
   public static void main(String[] args)  {
-    Assignment11Part1 entity = new Assignment11Part1();
     try {
       if (args.length == 0) throw new Exception("You don't input formula!");
       args = Validation.deleteSpace(args);
       entity.checksOldFormula(args[0]);
-      HashMap<String,Double> vars = entity.parseVars(args);
-      entity.printResult(entity.startFormula, vars);
+      entity.printResult(entity.startFormula, entity.parseVars(args));
     } catch (NumberFormatException e) {
       System.err.println("Your values of variables wrong! " + e.getMessage());
     } catch (NullPointerException e) {
@@ -225,7 +225,7 @@ public class Assignment11Part1 {
       operation.append(formula.charAt(i));
       i++;
     }
-    return operation.toString();
+    return operation.toString().toLowerCase();
   }
 
   /**

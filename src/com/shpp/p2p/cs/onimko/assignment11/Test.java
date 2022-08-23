@@ -34,12 +34,10 @@ public class Test extends Assignment11Part1 {
       System.out.println(test.calculate( "(-a+b)*2", test.testVars));
       System.out.println(test.calculate( "-2.2+2", null));
       System.out.println("---------------------------");
-      String[] testArgs= {"a+b", "a=2", "b=1"};
-      test.calculate(testArgs[0], test.parseVars(testArgs));
+
       for (int i = 1; i < 5; i++) {
-        testArgs[1] = "a=" + (i+1);
-        testArgs[2] = "b=" + i;
-        test.printResult(testArgs[0], test.parseVars(testArgs));
+        String[] testArgs= {"a*sin(30)+b*sqrt(4)", "a="+i, "b="+(i+1)};
+        Assignment11Part1.main(testArgs);
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -92,8 +90,8 @@ public class Test extends Assignment11Part1 {
   }
 
   private  boolean testMain() throws Exception {
-    return calculate("-4+a/2*b^2",
-            parseVars(new String[] {"-4+a/2*b^2", "a=1", "b=2"})) == -2.0;
+    return calculate("1+(1+3*(4+5.5-sin(60*cos(a))))/7",
+            parseVars(new String[] {"", "a=-60"})) == 5.0;
   }
 
   private  boolean testBrackets() throws Exception {
