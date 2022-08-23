@@ -8,6 +8,7 @@ import java.util.function.BinaryOperator;
  */
 public class Operation {
 
+    /**Math functions*/
     public static final HashMap<String, IAction> FUNCTIONS = new HashMap<>();
     static {
         FUNCTIONS.put("sin", v -> Math.sin(Math.toRadians(v)));
