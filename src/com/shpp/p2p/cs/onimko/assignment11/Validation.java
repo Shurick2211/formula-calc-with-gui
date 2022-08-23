@@ -87,7 +87,8 @@ public class Validation {
    * @return the changed array.
    */
   public static String[] deleteSpace(String[] args) {
-    String ar = Arrays.stream(args).reduce("", (x, y) -> x + y);
+    String ar = Arrays.stream(args).reduce("", (x, y) -> x + y)
+        .replaceAll(",",".");
     args = new String[(int) (Arrays.stream(args).filter(s -> s.contains("=")).count() + 1)];
     int start = 0, end;
     for (int i = 0; i < args.length; i++) {

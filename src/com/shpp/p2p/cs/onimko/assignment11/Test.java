@@ -39,6 +39,10 @@ public class Test extends Assignment11Part1 {
       Assignment11Part1.main(testArgs);
       System.out.println("---------------------------");
 
+      testArgs= new String[] {"10,4+1.6", "a=100", "b=2"};
+      Assignment11Part1.main(testArgs);
+      System.out.println("---------------------------");
+
       for (int i = 1; i < 5; i++) {
         testArgs= new String[]{"a*sin(30)+b*sqrt(4)", "a=" + i, "b=" + (i + 1)};
         Assignment11Part1.main(testArgs);
