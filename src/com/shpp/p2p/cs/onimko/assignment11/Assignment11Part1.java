@@ -81,7 +81,7 @@ public class Assignment11Part1 {
     for (int i = 1; i < args.length; i++){
       keyVal = args[i].split("=");
       if (keyVal.length != 2) throw new Exception("Your enter variables is wrong!");
-      value = Double.parseDouble(keyVal[1]);
+      value = Double.parseDouble(keyVal[1].replaceAll(",", "."));
       variables.put(keyVal[0], value);
     }
     return variables;
