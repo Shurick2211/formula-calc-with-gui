@@ -16,8 +16,6 @@ public class Assignment11Part1 {
   private String parsedFormula;
   /** The start formula for calculation */
   private String startFormula;
-  /**Entity for main method*/
-  static final Assignment11Part1 entity = new Assignment11Part1();
 
   /**
    * The main method.
@@ -26,6 +24,7 @@ public class Assignment11Part1 {
    * @param args the input array of string
    */
   public static void main(String[] args)  {
+    Assignment11Part1 entity = new Assignment11Part1();
     try {
       if (args.length == 0) throw new Exception("You don't input formula!");
       args = Validation.deleteSpace(args);
