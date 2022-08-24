@@ -28,6 +28,8 @@ public class Assignment11Part1 {
   public static void main(String[] args)  {
     try {
       if (args.length == 0) throw new Exception("You don't input formula!");
+      for (int i = 0; i < args.length; i++)
+        args[i] = args[i].replaceAll(" ","").replaceAll(",",".");
       //args = Validation.deleteSpace(args);
       entity.checksOldFormula(args[0]);
       entity.printResult(entity.startFormula, entity.parseVars(args));
@@ -172,7 +174,7 @@ public class Assignment11Part1 {
    * @param formula the input formula
    * @return string formula consist with sign of math operations.
    */
-  private String parseFormula(String formula) throws Exception {
+  private String parseFormula(String formula) {
     System.out.println("Parse formula");
     clearArrays();
     String  function;
@@ -222,7 +224,7 @@ public class Assignment11Part1 {
    * @param i the start position function in the formula.
    * @return the function's name
    */
-  private String getFunctionName(String formula, int i) throws Exception {
+  private String getFunctionName(String formula, int i) {
     StringBuilder operation = new StringBuilder();
     for (;i < formula.length() && !Validation.isRegex(formula.charAt(i), "[-+*/^\\(\\)]"); i++ )
       operation.append(formula.charAt(i));
@@ -237,7 +239,6 @@ public class Assignment11Part1 {
    */
   private  ArrayList<Double> substitutionsVariables(HashMap<String, Double> vars) {
     ArrayList<Double> variables = new ArrayList<>(numbers);
-    Double value;
     for (Integer numVar : numVars.keySet()) {
       Double temp = 1d;
       if ( numbers.get(numVar) < 0) temp = -temp;
