@@ -28,7 +28,7 @@ public class Validation {
    * @param regex the input RegEx-string.
    * @return true or false
    */
-  private static boolean isRegex (char ch, String regex) {
+  public static boolean isRegex (char ch, String regex) {
     return isPrepared(String.valueOf(ch),regex);
   }
 

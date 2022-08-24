@@ -20,6 +20,7 @@ public class Test extends Assignment11Part1 {
     try {
       Test test = new Test();
       String[] testArgs;
+
       System.out.println("---------------------------");
       System.out.println("MainTest: " + test.testMain());
       System.out.println("---------------------------");
@@ -44,7 +45,7 @@ public class Test extends Assignment11Part1 {
       Assignment11Part1.main(testArgs);
       System.out.println("---------------------------");
 
-      testArgs= new String[] {"log2(b)", "b=" + Math.E};//
+      testArgs= new String[] {"log2(bd)", "bd=" + Math.E};//
       Assignment11Part1.main(testArgs);
       System.out.println("---------------------------");
 

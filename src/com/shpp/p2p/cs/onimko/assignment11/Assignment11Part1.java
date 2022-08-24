@@ -11,7 +11,7 @@ public class Assignment11Part1 {
   /**The functions on formula*/
   private final ArrayList<String> functions= new ArrayList<>();
   /**The indexes of variables in an input formula*/
-  private final ArrayList<Integer> numVars = new ArrayList<>();
+  private final HashMap<Integer,String> numVars = new HashMap<>();
   /** The prepared formula for calculation */
   private String parsedFormula;
   /** The start formula for calculation */
@@ -192,21 +192,17 @@ public class Assignment11Part1 {
       }
       if (Character.isDigit(el) || el == '.') number.append(el);
       if (Character.isLetter(el)) {
-
-        if(i < formula.length()-1 && Character.isLetter(formula.charAt(i+1))) {
-          function = getFunctionName(formula,i);
+        function = getFunctionName(formula,i);
+        if (Operation.FUNCTIONS.get(function) != null) {
           functions.add(function);
           operation.append('@');
-          i += function.length()-1;
-          continue;
-        }
-        num = el;
-        if(number.toString().equals("-")) {
+        } else {
+          num = '!';
+          if(number.toString().equals("-"))  num = -el;
           number = new StringBuilder();
-          num = 0 - num;
+          numVars.put(numbers.size(), function);
         }
-        numVars.add(numbers.size());
-
+        i += function.length() - 1;
       }
       if (Validation.isOperation(el) || el == '(' || el ==')') operation.append(el);
       if (Validation.isOperation(el) || i == formula.length()-1) {
@@ -228,12 +224,8 @@ public class Assignment11Part1 {
    */
   private String getFunctionName(String formula, int i) throws Exception {
     StringBuilder operation = new StringBuilder();
-    while (formula.charAt(i) != '('){
+    for (;i < formula.length() && !Validation.isRegex(formula.charAt(i), "[-+*/^\\(\\)]"); i++ )
       operation.append(formula.charAt(i));
-      i++;
-      if (i == formula.length()) throw new Exception("Argument of function must be in the brackets - ()!");
-    }
-    Validation.validateFunction(operation.toString().toLowerCase());
     return operation.toString().toLowerCase();
   }
 
@@ -246,13 +238,10 @@ public class Assignment11Part1 {
   private  ArrayList<Double> substitutionsVariables(HashMap<String, Double> vars) {
     ArrayList<Double> variables = new ArrayList<>(numbers);
     Double value;
-    for (Integer numVar : numVars) {
+    for (Integer numVar : numVars.keySet()) {
       Double temp = 1d;
-      if ((value = numbers.get(numVar)) < 0) {
-        value = - value;
-        temp = -temp;
-      }
-      temp *= vars.get(String.valueOf((char) value.intValue()));
+      if ( numbers.get(numVar) < 0) temp = -temp;
+      temp *= vars.get(numVars.get(numVar));
       variables.set(numVar, temp);
     }
     return variables;
