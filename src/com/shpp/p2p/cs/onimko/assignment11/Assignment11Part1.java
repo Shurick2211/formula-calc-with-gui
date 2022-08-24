@@ -28,7 +28,7 @@ public class Assignment11Part1 {
   public static void main(String[] args)  {
     try {
       if (args.length == 0) throw new Exception("You don't input formula!");
-      args = Validation.deleteSpace(args);
+      //args = Validation.deleteSpace(args);
       entity.checksOldFormula(args[0]);
       entity.printResult(entity.startFormula, entity.parseVars(args));
     } catch (NumberFormatException e) {
@@ -79,7 +79,7 @@ public class Assignment11Part1 {
     String [] keyVal;
     double value;
     for (int i = 1; i < args.length; i++){
-      keyVal = args[i].split("=");
+      keyVal = args[i].replaceAll(" ", "").split("=");
       if (keyVal.length != 2) throw new Exception("Your enter variables is wrong!");
       value = Double.parseDouble(keyVal[1].replaceAll(",", "."));
       variables.put(keyVal[0], value);
