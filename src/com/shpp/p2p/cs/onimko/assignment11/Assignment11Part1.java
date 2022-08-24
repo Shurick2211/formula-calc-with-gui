@@ -110,12 +110,15 @@ public class Assignment11Part1 {
    * @param nums the ArrayList of numbers for operations.
    * @return result.
    */
-  private  double doQueOfOperation(String formula, ArrayList<Double> nums) {
+  private  double doQueOfOperation(String formula, ArrayList<Double> nums) throws Exception {
     String[] operation = {"^","/","*","-","+"};
     int index;
     for (String o:operation)
       while (formula.contains(o)){
         index = formula.indexOf(o);
+        if (o.equals("/") && nums.get(index+1) == 0.0) throw new Exception("Can't divide by zero");
+        if (o.equals("^") && nums.get(index) == 0.0 && nums.get(index+1) < 0.0)
+          throw new Exception("Can't raise zero to a negative power");
         nums.add(index, Operation.ACTIONS.get(formula.charAt(index)).apply(nums.get(index),nums.get(index+1)));
         nums.remove(index + 1);
         if (index + 2 <= nums.size()) nums.remove(index +1);
@@ -131,7 +134,7 @@ public class Assignment11Part1 {
    * @param nums the ArrayList of numbers for operations.
    * @return formula without brackets
    */
-  private  String doOperationInBracket(String formula, ArrayList<Double> nums) {
+  private  String doOperationInBracket(String formula, ArrayList<Double> nums) throws Exception {
     int indexStart, indexEnd, tmp;
     ArrayList<Double> temp = new ArrayList<>();
     while (formula.contains("(")){
@@ -144,6 +147,8 @@ public class Assignment11Part1 {
         nums.remove(tmp);
       }
       if (indexEnd-indexStart == 1 && formula.charAt(indexStart-1) == '@') {
+        if (functions.get(Validation.counter(formula,'@')-1).equals("sqrt") && temp.get(0) < 0.0)
+          throw new Exception("Can't get root of a negative number");
         nums.add(tmp, Operation.FUNCTIONS.get(functions.get(Validation.counter(formula,'@')-1)).calculate(temp.get(0)));
         indexStart--;
       }
@@ -187,6 +192,7 @@ public class Assignment11Part1 {
       }
       if (Character.isDigit(el) || el == '.') number.append(el);
       if (Character.isLetter(el)) {
+
         if(i < formula.length()-1 && Character.isLetter(formula.charAt(i+1))) {
           function = getFunctionName(formula,i);
           functions.add(function);
@@ -200,6 +206,7 @@ public class Assignment11Part1 {
           num = 0 - num;
         }
         numVars.add(numbers.size());
+
       }
       if (Validation.isOperation(el) || el == '(' || el ==')') operation.append(el);
       if (Validation.isOperation(el) || i == formula.length()-1) {
