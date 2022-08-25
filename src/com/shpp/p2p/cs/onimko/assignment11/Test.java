@@ -26,7 +26,7 @@ public class Test extends Assignment11Part1 {
       System.out.println("---------------------------");
       System.out.println("TestBrackets: " + test.testBrackets());
       System.out.println("---------------------------");
-      System.out.println("TestNullPointerException: " + test.testNullPointException());
+      System.out.println("TestNullPointerException: " + test.testWrongVariablesException());
       System.out.println("---------------------------");
       System.out.println("TestNumberFormatException: " + test.testNumberFormatException());
       System.out.println("---------------------------");
@@ -40,7 +40,9 @@ public class Test extends Assignment11Part1 {
       System.out.println("---------------------------");
       System.out.println("TestExceptionFunction: " + test.testExceptionFunctionSyntax());
       System.out.println("---------------------------");
-
+      System.out.println("TestMathOperationsError: " + test.testMathOperationsError("sqrt(-2)"));
+      System.out.println("TestMathOperationsError: " + test.testMathOperationsError("5/0"));
+      System.out.println("---------------------------");
       // test some formulas
       testArgs= new String[] {"log10(a)", "a=100"};
       Assignment11Part1.main(testArgs);
@@ -119,11 +121,12 @@ public class Test extends Assignment11Part1 {
     return false;
   }
 
-  private  boolean testNullPointException() {
+  private  boolean testWrongVariablesException() {
     try {
       calculate("4*c+a/2*b^2", testVars);
     } catch (Exception e) {
-      return e.getClass().equals(NullPointerException.class);
+      System.out.println(e.getMessage());
+      return true;
     }
     return false;
   }
@@ -135,5 +138,15 @@ public class Test extends Assignment11Part1 {
 
   private  boolean testBrackets() throws Exception {
     return calculate("8-(a^2-3*(b+1))^2+b*10/2+(a-b)*b" , testVars) == 10d;
+  }
+
+  private boolean testMathOperationsError(String formula) {
+    try {
+      calculate(formula,null);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      return true;
+    }
+    return false;
   }
 }

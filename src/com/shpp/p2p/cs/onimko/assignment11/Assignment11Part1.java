@@ -35,8 +35,6 @@ public class Assignment11Part1 {
       entity.printResult(entity.startFormula, entity.parseVars(args));
     } catch (NumberFormatException e) {
       System.err.println("Your values of variables wrong! " + e.getMessage());
-    } catch (NullPointerException e) {
-      System.err.println("Your variables wrong for the input formula!");
     } catch (Exception e) {
       System.err.println(e.getMessage());
     }
@@ -237,9 +235,10 @@ public class Assignment11Part1 {
    * @param vars hashmap of vars.
    * @return ArrayList of numbers for calculation.
    */
-  private  ArrayList<Double> substitutionsVariables(HashMap<String, Double> vars) {
+  private  ArrayList<Double> substitutionsVariables(HashMap<String, Double> vars) throws Exception {
     ArrayList<Double> variables = new ArrayList<>(numbers);
     for (Integer numVar : numVars.keySet()) {
+      Validation.validateFunctionsAndVariables(numVars.get(numVar),vars);
       Double temp = 1d;
       if ( numbers.get(numVar) < 0) temp = -temp;
       temp *= vars.get(numVars.get(numVar));
