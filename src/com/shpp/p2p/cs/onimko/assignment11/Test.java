@@ -32,8 +32,9 @@ public class Test extends Assignment11Part1 {
       System.out.println("---------------------------");
       System.out.println("TestException: " + test.testException());
       System.out.println("---------------------------");
-      System.out.println("TestExceptionFormula: " + (test.testExceptionFormula("4.0+a/2*b^2+23+")
-              && test.testExceptionFormula("4.0+a/2*b^2+*23") && test.testExceptionFormula("/4.0+a/2*b^2+23")));
+      System.out.println("TestExceptionFormula: " + test.testExceptionFormula("/4.0+a/2*b^2+23"));
+      System.out.println("TestExceptionFormula: " + test.testExceptionFormula("4.0+a/2*b^2+*23"));
+      System.out.println("TestExceptionFormula: " + test.testExceptionFormula("4.0+a/2*b^2+23+"));
       System.out.println("---------------------------");
       System.out.println("TestExceptionFunction: " + test.testExceptionFunction());
       System.out.println("---------------------------");
@@ -91,6 +92,7 @@ public class Test extends Assignment11Part1 {
     try {
       calculate(formula, testVars);
     } catch (Exception e) {
+      System.out.println(e.getMessage());
       return true;
     }
     return false;

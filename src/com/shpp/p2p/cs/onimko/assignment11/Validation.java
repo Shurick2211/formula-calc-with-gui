@@ -1,6 +1,5 @@
 package com.shpp.p2p.cs.onimko.assignment11;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -9,6 +8,8 @@ import java.util.regex.Pattern;
  * Class for validation a formula.
  */
 public class Validation {
+  /** Index error in the formula, if it has two operation one next other. */
+  private static String twoOperations;
   /**
    * Method checks an input formula.
    * @param formula the input formula
@@ -17,9 +18,13 @@ public class Validation {
   public static void validateFormula(String formula) throws Exception {
     boolean validBrackets = counter(formula,'(') == counter(formula,')');
     if (validBrackets) {
-      if (!isRegex(formula.charAt(0),"[-0-9A-Za-z@\\(]") || isTwoOperation(formula)
-          || !isRegex(formula.charAt(formula.length()-1),"[0-9A-Za-z)]"))
-        throw new Exception("Formula invalid!");
+      if (!isRegex(formula.charAt(0),"[-0-9A-Za-z@\\(]"))
+        throw new Exception("Formula invalid! Starts with incorrect symbol!");
+      if (isTwoOperation(formula))
+        throw new Exception("Formula invalid! It has two operation: <"
+                + twoOperations + "> of index: " + formula.indexOf(twoOperations));
+      if (!isRegex(formula.charAt(formula.length()-1),"[0-9A-Za-z)]"))
+        throw new Exception("Formula invalid! Ends of formula is wrong");
     } else throw new Exception("Brackets have no pair!");
   }
 
@@ -49,8 +54,10 @@ public class Validation {
    */
   private static boolean isTwoOperation(String formula) {
     for (int i = 0; i < formula.length()-1; i++) {
-      if (isOperation(formula.charAt(i)) && isOperation(formula.charAt(i + 1)))
+      if (isOperation(formula.charAt(i)) && isOperation(formula.charAt(i + 1))) {
+        twoOperations = String.valueOf(new char[]{formula.charAt(i), formula.charAt(i + 1)});
         return true;
+      }
     }
     return false;
   }
