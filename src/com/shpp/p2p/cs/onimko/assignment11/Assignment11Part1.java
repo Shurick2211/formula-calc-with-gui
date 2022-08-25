@@ -149,6 +149,8 @@ public class Assignment11Part1 {
       if (indexEnd-indexStart == 1 && formula.charAt(indexStart-1) == '@') {
         if (functions.get(Validation.counter(formula,'@')-1).equals("sqrt") && temp.get(0) < 0.0)
           throw new Exception("Can't get root of a negative number");
+        if (functions.get(Validation.counter(formula,'@')-1).startsWith("log") && temp.get(0) < 0.0)
+          throw new Exception("Can't get log of a negative number");
         nums.add(tmp, Operation.FUNCTIONS.get(functions.get(Validation.counter(formula,'@')-1)).calculate(temp.get(0)));
         indexStart--;
       }

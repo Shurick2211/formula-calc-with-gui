@@ -42,6 +42,8 @@ public class Test extends Assignment11Part1 {
       System.out.println("---------------------------");
       System.out.println("TestMathOperationsError: " + test.testMathOperationsError("sqrt(-2)"));
       System.out.println("TestMathOperationsError: " + test.testMathOperationsError("5/0"));
+      System.out.println("TestMathOperationsError: " + test.testMathOperationsError("0^(-2)"));
+      System.out.println("TestMathOperationsError: " + test.testMathOperationsError("log10(-2)"));
       System.out.println("---------------------------");
       // test some formulas
       testArgs= new String[] {"log10(a)", "a=100"};
