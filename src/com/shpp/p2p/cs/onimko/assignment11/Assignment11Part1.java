@@ -214,6 +214,10 @@ public class Assignment11Part1 {
         }
         numbers.add(num);
       }
+      if (Validation.isOperation(el) && Validation.isRegex(el,"[*/^]") && formula.charAt(i+1) == '-') {
+        i++;
+        number.append('-');
+      }
     }
     return operation.toString();
   }

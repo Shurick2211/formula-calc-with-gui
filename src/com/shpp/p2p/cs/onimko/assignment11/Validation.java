@@ -21,11 +21,12 @@ public class Validation {
     if (validBrackets) {
       if (!isRegex(formula.charAt(0),"[-0-9A-Za-z@\\(]"))
         throw new Exception("Formula invalid! Starts with incorrect symbol!");
-      if (isTwoOperation(formula))
+      if (isTwoOperation(formula) && !(isRegex(twoOperations.charAt(1),"[-]") && isRegex(twoOperations.charAt(0),"[/*^]")))
         throw new Exception("Formula invalid! It has two operation: <"
                 + twoOperations + "> of index: " + formula.indexOf(twoOperations));
       if (!isRegex(formula.charAt(formula.length()-1),"[0-9A-Za-z)]"))
         throw new Exception("Formula invalid! Ends of formula is wrong");
+      validateSyntaxOfFunction(formula);
     } else throw new Exception("Brackets have no pair!");
   }
 
@@ -89,6 +90,31 @@ public class Validation {
   }
 
   /**
+   * Method for validate math functions and variables in the input formula.
+   * @param fun - ArrayList function in the formula.
+   */
+  public static void validateFunctionsAndVariables(String fun, HashMap<String, Double> vars) throws Exception {
+    if (vars == null || vars.keySet().stream().noneMatch(n -> n.equals(fun)))
+      if (fun.length() > 2 && Operation.FUNCTIONS.keySet().stream().anyMatch(f -> f.startsWith(fun.substring(0,2))))
+        throw new Exception("Function: <"+fun+"> - is invalid!");
+      else throw new Exception("Variable: <"+fun+"> - has no value!");
+  }
+
+  /**
+   * Method checks syntax of functions on a formula
+   * @param formula the input formula.
+   * @throws Exception the syntax Exception.
+   */
+  private static void validateSyntaxOfFunction(String formula) throws Exception {
+    int ind;
+    for (String f:Operation.FUNCTIONS.keySet()) {
+      ind = formula.indexOf(f);
+      if ( ind != -1 && (ind + f.length() >= formula.length()||formula.charAt(ind + f.length()) != '('))
+          throw new Exception("Function: <" + f + "> has no argument. Argument must be in the brackets - ()!");
+    }
+  }
+
+  /**
    * Method changes an input array. It returns
    * an array, where array[0] - it's a formula,
    * other elements - variables;
@@ -97,7 +123,7 @@ public class Validation {
    */
   public static String[] deleteSpace(String[] args) {
     String ar = Arrays.stream(args).reduce("", (x, y) -> x + y)
-        .replaceAll(",",".");
+            .replaceAll(",",".");
     args = new String[(int) (Arrays.stream(args).filter(s -> s.contains("=")).count() + 1)];
     int start = 0, end;
     for (int i = 0; i < args.length; i++) {
@@ -108,16 +134,5 @@ public class Validation {
       start = end;
     }
     return args;
-  }
-
-  /**
-   * Method for validate math functions and variables in the input formula.
-   * @param fun - ArrayList function in the formula.
-   */
-  public static void validateFunctionsAndVariables(String fun, HashMap<String, Double> vars) throws Exception {
-    if (vars == null || vars.keySet().stream().noneMatch(n -> n.equals(fun)))
-      if (fun.length()>2 && Operation.FUNCTIONS.keySet().stream().anyMatch(f -> f.startsWith(fun.substring(0,2))))
-        throw new Exception("Function: <"+fun+"> - is invalid!");
-      else throw new Exception("Variable: <"+fun+"> - has no value!");
   }
 }

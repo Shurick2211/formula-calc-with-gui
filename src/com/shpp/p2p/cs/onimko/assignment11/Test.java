@@ -34,11 +34,12 @@ public class Test extends Assignment11Part1 {
       System.out.println("---------------------------");
       System.out.println("TestExceptionFormula: " + test.testExceptionFormula("/4.0+a/2*b^2+23"));
       System.out.println("TestExceptionFormula: " + test.testExceptionFormula("4.0+a/2*b^2+*23"));
+      System.out.println("TestExceptionFormula: " + test.testExceptionFormula("4.0+a/2*b^2+-23"));
       System.out.println("TestExceptionFormula: " + test.testExceptionFormula("4.0+a/2*b^2+23+"));
       System.out.println("---------------------------");
       System.out.println("TestExceptionFunction: " + test.testExceptionFunction());
       System.out.println("---------------------------");
-      System.out.println("TestExceptionFunction: " + test.testExceptionFunctionSyntax());
+      System.out.println("TestExceptionFunctionSyntax: " + test.testExceptionFunctionSyntax());
       System.out.println("---------------------------");
       System.out.println("TestMathOperationsError: " + test.testMathOperationsError("sqrt(-2)"));
       System.out.println("TestMathOperationsError: " + test.testMathOperationsError("5/0"));
@@ -62,6 +63,10 @@ public class Test extends Assignment11Part1 {
       Assignment11Part1.main(testArgs);
       System.out.println("---------------------------");
 
+      testArgs= new String[] {"10/-b", "a=100", "b=2"};
+      Assignment11Part1.main(testArgs);
+      System.out.println("---------------------------");
+
       for (int i = 1; i < 5; i++) {
         testArgs= new String[]{"a*sin(30)+b*sqrt(4)", "a=" + i, "b=" + (i + 1)};
         Assignment11Part1.main(testArgs);
@@ -74,7 +79,7 @@ public class Test extends Assignment11Part1 {
 
   private boolean testExceptionFunctionSyntax() {
     try {
-      calculate("sin60",null);
+      calculate("sin-60",null);
     } catch (Exception e) {
       System.out.println(e.getMessage());
       return true;
