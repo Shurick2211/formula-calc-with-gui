@@ -41,6 +41,20 @@ public class Assignment11Part1 {
   }
 
   /**
+   * Method returns the result of calculate for using class as object or module.
+   * @param args the input array, where array[0] is formula, others the variables.
+   * @return number - the result of calculate.
+   * @throws Exception the info of error.
+   */
+  public double getResult(String[] args) throws Exception {
+    if (args.length == 0) throw new Exception("You don't input formula!");
+    for (int i = 0; i < args.length; i++)
+      args[i] = args[i].replaceAll(" ","").replaceAll(",",".");
+    checksOldFormula(args[0]);
+    return calculate(parsedFormula, parseVars(args));
+  }
+
+  /**
    * Method checks that an input formula equals
    * the formula of last calculated.
    * If it is true - don't parse the input formula,

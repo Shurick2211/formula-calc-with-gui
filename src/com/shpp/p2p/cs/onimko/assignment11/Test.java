@@ -56,7 +56,7 @@ public class Test extends Assignment11Part1 {
       System.out.println("---------------------------");
 
       testArgs= new String[] {"2+2*2"};
-      Assignment11Part1.main(testArgs);
+      System.out.println("Test method getResulte: " + testArgs[0] + " = " + test.getResult(testArgs));
       System.out.println("---------------------------");
 
       testArgs= new String[] {"10,4+1.6", "a=100", "b=2"};
