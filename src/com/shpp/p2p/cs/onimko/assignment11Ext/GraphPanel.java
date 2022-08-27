@@ -1,15 +1,14 @@
 package com.shpp.p2p.cs.onimko.assignment11Ext;
 
 import com.shpp.p2p.cs.onimko.assignment11.Assignment11Part1;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.plaf.ComponentUI;
+import javax.swing.JPanel;
 
 public class GraphPanel extends JPanel implements ComponentListener, Const{
 
@@ -21,7 +20,7 @@ public class GraphPanel extends JPanel implements ComponentListener, Const{
     Map<String, ArrayList<MyPoint>> charts= new HashMap<>();
 
     private void drawGraph(Graphics g) {
-        int x=0, y=0, oX=0, oY=0;
+        int x, y, oX=0, oY=0;
         for (String chart:charts.keySet())
             for (MyPoint point:charts.get(chart)){
                 g.setColor(Color.RED);
