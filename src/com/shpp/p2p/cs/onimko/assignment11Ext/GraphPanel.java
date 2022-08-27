@@ -14,20 +14,18 @@ public class GraphPanel extends JPanel implements ComponentListener, Const{
 
     /**Cell size*/
     int cellSize;
-    int cell = 10;
+    /**Number of pixels per division*/
     double pixel;
     /**Storage of chart*/
     Map<String, ArrayList<MyPoint>> charts= new HashMap<>();
 
 
     private void drawGraph(Graphics g) {
-        charts.keySet().forEach(chart -> {
-            charts.get(chart).forEach(point -> {
-                g.setColor(Color.RED);
-                g.fillOval( (int)(point.getX()*pixel+pixel*NUMBER_DIV/2*cell),
-                    (int) (pixel*NUMBER_DIV/2*cell-point.getY()*pixel),2,2);
-            });
-        });
+        charts.keySet().forEach(chart -> charts.get(chart).forEach(point -> {
+            g.setColor(Color.RED);
+            g.fillOval( (int)(point.getX()*pixel+pixel*NUMBER_DIV/2*cell),
+                (int) (pixel*NUMBER_DIV/2*cell-point.getY()*pixel),2,2);
+        }));
     }
 
 
