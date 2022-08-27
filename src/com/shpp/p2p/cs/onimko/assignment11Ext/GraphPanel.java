@@ -13,16 +13,20 @@ import java.util.Map;
 public class GraphPanel extends JPanel implements ComponentListener, Const{
 
     /**Cell size*/
-    int cell;
+    int cellSize;
+    int cell = 10;
+    double pixel;
     /**Storage of chart*/
-    Map<String, ArrayList<Point>> charts= new HashMap<>();
+    Map<String, ArrayList<MyPoint>> charts= new HashMap<>();
 
 
     private void drawGraph(Graphics g) {
+        Graphics2D g2 = (Graphics2D)g;
         charts.keySet().forEach(chart -> {
             charts.get(chart).forEach(point -> {
-                g.setColor(Color.RED);
-                g.drawOval(point.x,point.y,2,2);
+                g2.setColor(Color.RED);
+                g2.fillOval( (int)(point.getX()*pixel+getHeight()/2),
+                    (int) (getHeight()/2-point.getY()*pixel),2,2);
             });
         });
     }
@@ -30,20 +34,21 @@ public class GraphPanel extends JPanel implements ComponentListener, Const{
 
     protected void delete(String formula){
         charts.remove(formula);
+        update(this.getGraphics());
     }
 
     protected void create(String formula){
         if (formula == null || formula.equals("")) return;
         Assignment11Part1 calk= new Assignment11Part1();
-        ArrayList<Point> dataForChart = new ArrayList<>();
+        ArrayList<MyPoint> dataForChart = new ArrayList<>();
         double y = 0;
-        for (int x = -getHeight()/2; x < getHeight()/2; x++) {
+        for (int x = -cell*NUMBER_DIV/2; x <= cell*NUMBER_DIV/2; x++) {
             try {
                 y = calk.getResult(new String[]{formula,"x="+x});
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            dataForChart.add(new Point(x+getHeight()/2, (int) (getHeight()/2-y)));
+            dataForChart.add(new MyPoint(x, y));
         }
         charts.put(formula,dataForChart);
         update(this.getGraphics());
@@ -52,7 +57,8 @@ public class GraphPanel extends JPanel implements ComponentListener, Const{
     @Override
     public void paint(Graphics g) {
         removeAll();
-        cell = getHeight()/NUMBER_DIV;
+        cellSize = getHeight()/NUMBER_DIV;
+        pixel = (double) cellSize/cell;
         drawGrid(g);
         drawAxis(g);
         drawGraph(g);
@@ -64,8 +70,8 @@ public class GraphPanel extends JPanel implements ComponentListener, Const{
      */
     private void drawAxis(Graphics g) {
         g.setColor(Color.BLACK);
-        g.drawLine( cell*(NUMBER_DIV/2),0, cell*(NUMBER_DIV/2), cell*NUMBER_DIV);
-        g.drawLine(0, cell*(NUMBER_DIV/2), cell*NUMBER_DIV, cell*(NUMBER_DIV/2));
+        g.drawLine( cellSize *(NUMBER_DIV/2),0, cellSize *(NUMBER_DIV/2), cellSize *NUMBER_DIV);
+        g.drawLine(0, cellSize *(NUMBER_DIV/2), cellSize *NUMBER_DIV, cellSize *(NUMBER_DIV/2));
     }
 
     /**
@@ -74,10 +80,10 @@ public class GraphPanel extends JPanel implements ComponentListener, Const{
      */
     private void drawGrid(Graphics g) {
         g.setColor(Color.LIGHT_GRAY);
-        for (int x = 0; x <= cell*NUMBER_DIV; x += cell)
-            g.drawLine(x,0,x,cell*NUMBER_DIV);
-        for (int y = 0; y <= cell*NUMBER_DIV; y += cell)
-            g.drawLine(0, y, cell*NUMBER_DIV, y);
+        for (int x = 0; x <= cellSize *NUMBER_DIV; x += cellSize)
+            g.drawLine(x,0,x, cellSize *NUMBER_DIV);
+        for (int y = 0; y <= cellSize *NUMBER_DIV; y += cellSize)
+            g.drawLine(0, y, cellSize *NUMBER_DIV, y);
     }
 
     @Override
