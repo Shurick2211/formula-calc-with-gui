@@ -17,14 +17,6 @@ public interface Const {
     static final int NUMBER_DIV = 20;
 
     /**
-     * Size of left panel
-     */
-    static final int LEFT_PANEL = 50;
-    /**
-     * Size of up panel
-     */
-    static final int UP_PANEL = APPLICATION_WIDTH/NUMBER_DIV;
-    /**
      * Size of text field
      */
     static final int TEXT_FIELD = 40;

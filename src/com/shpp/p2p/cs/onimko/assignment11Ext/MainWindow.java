@@ -19,16 +19,17 @@ public class MainWindow implements Const{
     private void init() {
         Container mainContainer = frame.getContentPane();
         mainContainer.setLayout(new BorderLayout());
+        mainContainer.setBackground(Color.WHITE);
 
         JPanel upPanel = new JPanel();
         upPanel.setBackground(Color.lightGray);
-        upPanel.setSize(UP_PANEL,frame.getWidth());
+        upPanel.add(new Label("f(x) = "));
         upPanel.add(new TextField(TEXT_FIELD));
         mainContainer.add(upPanel, BorderLayout.NORTH);
 
         JPanel leftPanel = new JPanel();
         leftPanel.setBackground(Color.lightGray);
-        leftPanel.setSize(LEFT_PANEL,frame.getHeight());
+
         leftPanel.setBackground(Color.CYAN);
         leftPanel.add(new Button("Create"));
         mainContainer.add(leftPanel, BorderLayout.WEST);
