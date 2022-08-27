@@ -25,8 +25,12 @@ public class MainWindow implements Const{
         mainContainer.add(upPanel, BorderLayout.NORTH);
         upPanel.add(new TextField(20));
 
-        mainContainer.add(new GraphPanel(),BorderLayout.SOUTH);
-
+        JPanel leftPanel = new JPanel();
+        leftPanel.setBackground(Color.lightGray);
+        leftPanel.setSize(50,frame.getHeight());
+        leftPanel.add(new Button("Create"));
+        mainContainer.add(leftPanel, BorderLayout.WEST);
+        mainContainer.add(new GraphPanel());
     }
 
     /**
