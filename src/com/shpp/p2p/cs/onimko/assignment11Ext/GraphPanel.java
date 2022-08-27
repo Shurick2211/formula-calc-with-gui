@@ -11,39 +11,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GraphPanel extends JPanel implements ComponentListener, Const{
-    /**This graphics*/
-    Graphics g;
+
     /**Cell size*/
     int cell;
     /**Storage of chart*/
     Map<String, ArrayList<Point>> charts= new HashMap<>();
 
-    @Override
-    public void update(Graphics g) {
-        cell = getHeight()/NUMBER_DIV;
-        drawGrid(g);
-        drawAxis(g);
-        drawGraph(g);
-    }
 
     private void drawGraph(Graphics g) {
-        System.out.println(charts);
         charts.keySet().forEach(chart -> {
             charts.get(chart).forEach(point -> {
                 g.setColor(Color.RED);
                 g.drawOval(point.x,point.y,2,2);
             });
         });
-
     }
 
-    protected void clear(){
-        this.removeAll();
-        this.update(g);
-    }
 
-    protected void delete(){
-       System.out.println("Delete");
+    protected void delete(String formula){
+        charts.remove(formula);
     }
 
     protected void create(String formula){
@@ -60,13 +46,16 @@ public class GraphPanel extends JPanel implements ComponentListener, Const{
             dataForChart.add(new Point(x+getHeight()/2, (int) (getHeight()/2-y)));
         }
         charts.put(formula,dataForChart);
-
+        update(this.getGraphics());
     }
 
     @Override
     public void paint(Graphics g) {
-        this.g = g;
-        update(g);
+        removeAll();
+        cell = getHeight()/NUMBER_DIV;
+        drawGrid(g);
+        drawAxis(g);
+        drawGraph(g);
     }
 
     /**
@@ -93,7 +82,7 @@ public class GraphPanel extends JPanel implements ComponentListener, Const{
 
     @Override
     public void componentResized(ComponentEvent e) {
-        update(g);
+        update(this.getGraphics());
     }
 
     @Override

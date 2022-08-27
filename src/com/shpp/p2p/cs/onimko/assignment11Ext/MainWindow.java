@@ -64,7 +64,8 @@ public class MainWindow implements Const{
         } else if (e.getActionCommand().equals("Clear")) {
             textField.setText("");
         } else if (e.getActionCommand().equals("Delete")) {
-            graphPanel.delete();
+            graphPanel.delete(textField.getText());
+            textField.setText("");
         }
     }
 

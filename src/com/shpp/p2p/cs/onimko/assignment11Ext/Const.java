@@ -5,7 +5,7 @@ import java.awt.*;
 public interface Const {
 
     /**The height of the application window*/
-    static final int APPLICATION_HEIGHT = 800;
+    static final int APPLICATION_HEIGHT = 600;
 
     /**The width of the application window*/
     static final int APPLICATION_WIDTH = APPLICATION_HEIGHT +200;
