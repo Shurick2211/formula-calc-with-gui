@@ -13,6 +13,11 @@ public class GraphPanel extends JPanel implements ComponentListener, Const{
     public void update(Graphics g) {
         drawGrid(g);
         drawAxis(g);
+        drawGraph(g);
+    }
+
+    private void drawGraph(Graphics g) {
+
     }
 
     @Override
