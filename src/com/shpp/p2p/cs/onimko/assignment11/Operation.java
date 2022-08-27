@@ -14,7 +14,7 @@ public class Operation {
         FUNCTIONS.put("sin", v -> Math.sin(Math.toRadians(v)));
         FUNCTIONS.put("cos", v -> Math.cos(Math.toRadians(v)));
         FUNCTIONS.put("tan", v -> Math.tan(Math.toRadians(v)));
-        FUNCTIONS.put("atan", v -> Math.atan(Math.toRadians(v)));
+        FUNCTIONS.put("atan", Math::atan);
         FUNCTIONS.put("log10", Math::log10);
         FUNCTIONS.put("log2", Math::log);
         FUNCTIONS.put("sqrt", Math::sqrt);
