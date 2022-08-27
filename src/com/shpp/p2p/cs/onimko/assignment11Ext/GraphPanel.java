@@ -1,15 +1,22 @@
 package com.shpp.p2p.cs.onimko.assignment11Ext;
 
+import com.shpp.p2p.cs.onimko.assignment11.Assignment11Part1;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GraphPanel extends JPanel implements ComponentListener, Const{
     /**This graphics*/
     Graphics g;
     /**Cell size*/
     int cell;
+    /**Storage of chart*/
+    Map<String, ArrayList<Point>> charts= new HashMap<>();
 
     @Override
     public void update(Graphics g) {
@@ -20,6 +27,39 @@ public class GraphPanel extends JPanel implements ComponentListener, Const{
     }
 
     private void drawGraph(Graphics g) {
+        System.out.println(charts);
+        charts.keySet().forEach(chart -> {
+            charts.get(chart).forEach(point -> {
+                g.setColor(Color.RED);
+                g.drawOval(point.x,point.y,2,2);
+            });
+        });
+
+    }
+
+    protected void clear(){
+        this.removeAll();
+        this.update(g);
+    }
+
+    protected void delete(){
+       System.out.println("Delete");
+    }
+
+    protected void create(String formula){
+        if (formula == null || formula.equals("")) return;
+        Assignment11Part1 calk= new Assignment11Part1();
+        ArrayList<Point> dataForChart = new ArrayList<>();
+        double y = 0;
+        for (int x = -getHeight()/2; x < getHeight()/2; x++) {
+            try {
+                y = calk.getResult(new String[]{formula,"x="+x});
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            dataForChart.add(new Point(x+getHeight()/2, (int) (getHeight()/2-y)));
+        }
+        charts.put(formula,dataForChart);
 
     }
 

@@ -7,7 +7,14 @@ import java.awt.event.ActionEvent;
 public class MainWindow implements Const{
     /**Window for App*/
     JFrame frame = new JFrame("Builder Graphic!");
+    /**The chart's panel*/
+    GraphPanel graphPanel = new GraphPanel();
+    /**The text field*/
+    JTextField textField = new JTextField(TEXT_FIELD);
 
+    /**
+     * Create the window
+     */
     public MainWindow() {
         frame.setSize(APPLICATION_WIDTH, APPLICATION_HEIGHT);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -21,18 +28,22 @@ public class MainWindow implements Const{
         Container mainContainer = frame.getContentPane();
         mainContainer.setLayout(new BorderLayout());
         mainContainer.setBackground(Color.WHITE);
-
+        //add control panel
         JPanel upPanel = new JPanel();
         upPanel.setBackground(Color.lightGray);
-        upPanel.add(new Label("f(x) = "));
-        TextField textField = new TextField(TEXT_FIELD);
+        JLabel label = new JLabel("f(x) = ");
+        label.setFont(FONT);
+        upPanel.add(label);
+        textField.setFont(FONT);
+        textField.setActionCommand("Enter");
         textField.addActionListener(this::actionPerformed);
-
         upPanel.add(textField);
-        upPanel.add(new Button("Create"));
+        upPanel.add(createButton("Create"));
+        upPanel.add(createButton("Clear"));
+        upPanel.add(createButton("Delete"));
         mainContainer.add(upPanel, BorderLayout.NORTH);
-
-        mainContainer.add(new GraphPanel());
+        //Add chart's panel
+        mainContainer.add(graphPanel);
     }
 
     /**
@@ -48,8 +59,24 @@ public class MainWindow implements Const{
      * button actions.
      */
     public void actionPerformed(ActionEvent e) {
-
+        if (e.getActionCommand().equals("Create") || e.getActionCommand().equals("Enter")) {
+            graphPanel.create(textField.getText());
+        } else if (e.getActionCommand().equals("Clear")) {
+            textField.setText("");
+        } else if (e.getActionCommand().equals("Delete")) {
+            graphPanel.delete();
+        }
     }
 
+    /**
+     * Method creates button with action listener.
+     * @param name the name of button
+     * @return JButton
+     */
+    private JButton createButton(String name){
+        JButton button = new JButton(name);
+        button.addActionListener(this::actionPerformed);
+        return button;
+    }
 
 }
