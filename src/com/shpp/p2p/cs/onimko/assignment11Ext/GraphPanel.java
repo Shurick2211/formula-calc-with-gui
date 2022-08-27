@@ -9,6 +9,7 @@ import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.plaf.ComponentUI;
 
 public class GraphPanel extends JPanel implements ComponentListener, Const{
 
@@ -19,13 +20,17 @@ public class GraphPanel extends JPanel implements ComponentListener, Const{
     /**Storage of chart*/
     Map<String, ArrayList<MyPoint>> charts= new HashMap<>();
 
-
     private void drawGraph(Graphics g) {
-        charts.keySet().forEach(chart -> charts.get(chart).forEach(point -> {
-            g.setColor(Color.RED);
-            g.fillOval( (int)(point.getX()*pixel+pixel*NUMBER_DIV/2*cell),
-                (int) (pixel*NUMBER_DIV/2*cell-point.getY()*pixel),2,2);
-        }));
+        int x=0, y=0, oX=0, oY=0;
+        for (String chart:charts.keySet())
+            for (MyPoint point:charts.get(chart)){
+                g.setColor(Color.RED);
+                x = (int) (point.getX() * pixel + pixel * NUMBER_DIV / 2 * cell);
+                y = (int) (pixel * NUMBER_DIV / 2 * cell - point.getY() * pixel);
+                if (point.getX() != - NUMBER_DIV / 2 * cell) g.drawLine(x, y, oX, oY);
+                oX = x;
+                oY = y;
+            }
     }
 
 
@@ -51,9 +56,10 @@ public class GraphPanel extends JPanel implements ComponentListener, Const{
         update(this.getGraphics());
     }
 
+
     @Override
     public void paint(Graphics g) {
-        removeAll();
+        this.removeAll();
         cellSize = getHeight()/NUMBER_DIV;
         pixel = (double) cellSize/cell;
         drawGrid(g);
@@ -98,5 +104,10 @@ public class GraphPanel extends JPanel implements ComponentListener, Const{
 
     @Override
     public void componentHidden(ComponentEvent e) {
+    }
+
+    public void clear() {
+        charts.clear();
+        this.update(this.getGraphics());
     }
 }
