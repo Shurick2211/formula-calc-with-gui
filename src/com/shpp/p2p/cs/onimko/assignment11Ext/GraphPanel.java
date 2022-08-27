@@ -21,12 +21,11 @@ public class GraphPanel extends JPanel implements ComponentListener, Const{
 
 
     private void drawGraph(Graphics g) {
-        Graphics2D g2 = (Graphics2D)g;
         charts.keySet().forEach(chart -> {
             charts.get(chart).forEach(point -> {
-                g2.setColor(Color.RED);
-                g2.fillOval( (int)(point.getX()*pixel+getHeight()/2),
-                    (int) (getHeight()/2-point.getY()*pixel),2,2);
+                g.setColor(Color.RED);
+                g.fillOval( (int)(point.getX()*pixel+pixel*NUMBER_DIV/2*cell),
+                    (int) (pixel*NUMBER_DIV/2*cell-point.getY()*pixel),2,2);
             });
         });
     }
