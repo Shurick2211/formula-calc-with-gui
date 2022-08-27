@@ -8,9 +8,12 @@ import java.awt.event.ComponentListener;
 public class GraphPanel extends JPanel implements ComponentListener, Const{
     /**This graphics*/
     Graphics g;
+    /**Cell size*/
+    int cell;
 
     @Override
     public void update(Graphics g) {
+        cell = getHeight()/NUMBER_DIV;
         drawGrid(g);
         drawAxis(g);
         drawGraph(g);
@@ -32,8 +35,8 @@ public class GraphPanel extends JPanel implements ComponentListener, Const{
      */
     private void drawAxis(Graphics g) {
         g.setColor(Color.BLACK);
-        g.drawLine(getWidth()/NUMBER_DIV*(NUMBER_DIV/2) ,0, getWidth()/NUMBER_DIV*(NUMBER_DIV/2), getHeight());
-        g.drawLine(0, getHeight()/NUMBER_DIV*(NUMBER_DIV/2), getWidth(), getHeight()/NUMBER_DIV*(NUMBER_DIV/2));
+        g.drawLine( cell*(NUMBER_DIV/2),0, cell*(NUMBER_DIV/2), cell*NUMBER_DIV);
+        g.drawLine(0, cell*(NUMBER_DIV/2), cell*NUMBER_DIV, cell*(NUMBER_DIV/2));
     }
 
     /**
@@ -42,10 +45,10 @@ public class GraphPanel extends JPanel implements ComponentListener, Const{
      */
     private void drawGrid(Graphics g) {
         g.setColor(Color.LIGHT_GRAY);
-        for (int x = 0; x <= getWidth(); x += getWidth()/NUMBER_DIV)
-            g.drawLine(x,0,x,getHeight());
-        for (int y = 0; y <= getHeight(); y += getHeight()/NUMBER_DIV)
-            g.drawLine(0, y, getWidth(), y);
+        for (int x = 0; x <= cell*NUMBER_DIV; x += cell)
+            g.drawLine(x,0,x,cell*NUMBER_DIV);
+        for (int y = 0; y <= cell*NUMBER_DIV; y += cell)
+            g.drawLine(0, y, cell*NUMBER_DIV, y);
     }
 
     @Override
@@ -55,16 +58,13 @@ public class GraphPanel extends JPanel implements ComponentListener, Const{
 
     @Override
     public void componentMoved(ComponentEvent e) {
-
     }
 
     @Override
     public void componentShown(ComponentEvent e) {
-
     }
 
     @Override
     public void componentHidden(ComponentEvent e) {
-
     }
 }

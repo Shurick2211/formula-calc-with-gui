@@ -2,6 +2,7 @@ package com.shpp.p2p.cs.onimko.assignment11Ext;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class MainWindow implements Const{
     /**Window for App*/
@@ -24,15 +25,12 @@ public class MainWindow implements Const{
         JPanel upPanel = new JPanel();
         upPanel.setBackground(Color.lightGray);
         upPanel.add(new Label("f(x) = "));
-        upPanel.add(new TextField(TEXT_FIELD));
+        TextField textField = new TextField(TEXT_FIELD);
+        textField.addActionListener(this::actionPerformed);
+
+        upPanel.add(textField);
+        upPanel.add(new Button("Create"));
         mainContainer.add(upPanel, BorderLayout.NORTH);
-
-        JPanel leftPanel = new JPanel();
-        leftPanel.setBackground(Color.lightGray);
-
-        leftPanel.setBackground(Color.CYAN);
-        leftPanel.add(new Button("Create"));
-        mainContainer.add(leftPanel, BorderLayout.WEST);
 
         mainContainer.add(new GraphPanel());
     }
@@ -42,6 +40,15 @@ public class MainWindow implements Const{
      */
     protected void show() {
         frame.setVisible(true);
+    }
+
+    /**
+     * This class is responsible for detecting when the buttons are
+     * clicked, so you will have to define a method to respond to
+     * button actions.
+     */
+    public void actionPerformed(ActionEvent e) {
+
     }
 
 
