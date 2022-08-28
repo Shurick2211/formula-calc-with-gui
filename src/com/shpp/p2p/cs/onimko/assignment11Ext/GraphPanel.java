@@ -27,7 +27,7 @@ public class GraphPanel extends JComponent implements ComponentListener, Const{
     /**The counter*/
     int count = 0;
     /**Font for axis*/
-    Font font = new Font("Verdana",Font.ITALIC,8);
+    Font font = new Font("Verdana",Font.ITALIC,9);
 
     /**
      * Method draws chart.
