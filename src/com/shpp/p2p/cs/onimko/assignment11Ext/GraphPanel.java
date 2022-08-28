@@ -29,20 +29,28 @@ public class GraphPanel extends JComponent implements ComponentListener, Const{
     /**Font for axis*/
     Font font = new Font("Verdana",Font.ITALIC,8);
 
+    /**
+     * Method draws chart.
+     * @param g the Graphics
+     */
     private void drawGraph(Graphics g) {
         int x, y, oX=0, oY=0;
-        for (String chart:charts.keySet())
-            for (MyPoint point:charts.get(chart)){
+        for (String chart:charts.keySet()) {
+            for (MyPoint point : charts.get(chart)) {
                 g.setColor(COLORS[colorCharts.get(chart)]);
                 x = (int) (point.getX() * pixel + pixel * NUMBER_DIV / 2 * cell);
                 y = (int) (pixel * NUMBER_DIV / 2 * cell - point.getY() * pixel);
-                if (point.getX() != - NUMBER_DIV / 2 * cell) g.drawLine(x, y, oX, oY);
+                if (point.getX() != -NUMBER_DIV / 2 * cell) g.drawLine(x, y, oX, oY);
                 oX = x;
                 oY = y;
             }
+        }
     }
 
-
+    /**
+     * Method deletes chart with a formula
+     * @param formula the input formula.
+     */
     protected void delete(String formula){
         charts.remove(formula);
         this.repaint();
@@ -73,7 +81,10 @@ public class GraphPanel extends JComponent implements ComponentListener, Const{
         this.repaint();
     }
 
-
+    /**
+     * Method for drawing.
+     * @param g
+     */
     @Override
     public void paint(Graphics g) {
         cellSize = getHeight()/NUMBER_DIV;
@@ -137,6 +148,9 @@ public class GraphPanel extends JComponent implements ComponentListener, Const{
     public void componentHidden(ComponentEvent e) {
     }
 
+    /**
+     * Method clear all charts in this pane.
+     */
     public void clear() {
         charts.clear();
         colorCharts.clear();
@@ -144,6 +158,7 @@ public class GraphPanel extends JComponent implements ComponentListener, Const{
         this.repaint();
     }
 
+    /**Method for set zoom for chart*/
     public void setCell (String cell) {
         switch (cell){
             case "1" -> this.cell = 1;
