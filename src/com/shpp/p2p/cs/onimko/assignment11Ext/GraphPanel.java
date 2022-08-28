@@ -15,7 +15,7 @@ public class GraphPanel extends JComponent implements ComponentListener, Const{
 
     /**Division in a cell*/
     int cell = 10;
-    int trigonometric = 1;
+    double trigonometric = 1.0;
     /**Cell size*/
     int cellSize;
     /**Number of pixels per division*/
@@ -51,12 +51,13 @@ public class GraphPanel extends JComponent implements ComponentListener, Const{
         else trigonometric = 1;
         Assignment11Part1 calk= new Assignment11Part1();
         ArrayList<MyPoint> dataForChart = new ArrayList<>();
-        double y = 0;
+        double y;
         for (int x = -cell*NUMBER_DIV/2; x <= cell*NUMBER_DIV/2; x++) {
             try {
-                y = calk.getResult(new String[]{formula,"x="+x})*trigonometric;
+                y =  calk.getResult(new String[]{formula,"x="+x})*trigonometric;
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
+                continue;
             }
             dataForChart.add(new MyPoint(x, y));
         }
@@ -143,7 +144,7 @@ public class GraphPanel extends JComponent implements ComponentListener, Const{
             case "Pi/2" -> this.cell = 90;
             case "Pi/4" -> this.cell = 45;
         }
-        this.removeAll();
+
         update(this.getGraphics());
     }
 }
