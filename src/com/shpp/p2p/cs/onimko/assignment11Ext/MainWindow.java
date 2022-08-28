@@ -6,13 +6,13 @@ import java.awt.event.ActionEvent;
 
 public class MainWindow implements Const{
     /**Window for App*/
-    JFrame frame = new JFrame("Builder Graphic!");
+    private final JFrame frame = new JFrame("Builder Graphic!");
     /**The chart's panel*/
-    GraphPanel graphPanel = new GraphPanel();
+    private final GraphPanel graphPanel = new GraphPanel();
     /**The text field*/
-    JTextField textField = new JTextField(TEXT_FIELD);
+    private final JTextField textField = new JTextField(TEXT_FIELD);
     /**Combo box with cell's division*/
-    JComboBox comboBox;
+    private final JComboBox comboBox = new JComboBox(items);
     /**
      * Create the window
      */
@@ -34,7 +34,6 @@ public class MainWindow implements Const{
         upPanel.setBackground(Color.lightGray);
 
         upPanel.add(createLable("Cell:"));
-        comboBox = new JComboBox(items);
         comboBox.setFont(FONT);
         comboBox.setSelectedItem(items[1]);
         comboBox.addActionListener(this::actionPerformed);
@@ -49,9 +48,6 @@ public class MainWindow implements Const{
         upPanel.add(createButton("Create"));
         upPanel.add(createButton("Clear"));
         upPanel.add(createButton("Delete"));
-
-
-
         mainContainer.add(upPanel, BorderLayout.NORTH);
         //Add chart's panel
         mainContainer.add(graphPanel);
@@ -79,9 +75,7 @@ public class MainWindow implements Const{
             graphPanel.delete(textField.getText());
             textField.setText("");
         } else if (e.getActionCommand().equals("Box")) {
-            comboBox = (JComboBox)e.getSource();
-            String value = (String)comboBox.getSelectedItem();
-            graphPanel.setCell(value);
+            graphPanel.setCell(comboBox.getSelectedItem().toString());
         }
     }
 
