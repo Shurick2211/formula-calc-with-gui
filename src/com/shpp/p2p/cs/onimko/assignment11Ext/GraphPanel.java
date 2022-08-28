@@ -41,7 +41,7 @@ public class GraphPanel extends JComponent implements ComponentListener, Const{
 
     protected void delete(String formula){
         charts.remove(formula);
-        update(this.getGraphics());
+        this.repaint();
     }
 
     protected void create(String formula){
@@ -62,13 +62,12 @@ public class GraphPanel extends JComponent implements ComponentListener, Const{
             dataForChart.add(new MyPoint(x, y));
         }
         charts.put(formula,dataForChart);
-        update(this.getGraphics());
+        this.repaint();
     }
 
 
     @Override
     public void paint(Graphics g) {
-        this.removeAll();
         cellSize = getHeight()/NUMBER_DIV;
         pixel = (double) cellSize/cell;
         drawGrid(g);
@@ -132,7 +131,7 @@ public class GraphPanel extends JComponent implements ComponentListener, Const{
 
     public void clear() {
         charts.clear();
-        this.update(this.getGraphics());
+        this.repaint();
     }
 
     public void setCell (String cell) {
@@ -144,7 +143,6 @@ public class GraphPanel extends JComponent implements ComponentListener, Const{
             case "Pi/2" -> this.cell = 90;
             case "Pi/4" -> this.cell = 45;
         }
-
-        update(this.getGraphics());
+        this.repaint();
     }
 }
