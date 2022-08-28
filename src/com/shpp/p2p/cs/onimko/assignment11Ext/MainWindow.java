@@ -11,7 +11,8 @@ public class MainWindow implements Const{
     GraphPanel graphPanel = new GraphPanel();
     /**The text field*/
     JTextField textField = new JTextField(TEXT_FIELD);
-
+    /**Combo box with cell's division*/
+    JComboBox comboBox;
     /**
      * Create the window
      */
@@ -33,8 +34,7 @@ public class MainWindow implements Const{
         upPanel.setBackground(Color.lightGray);
 
         upPanel.add(createLable("Cell:"));
-        String [] items ={"1","10","100","Pi/4","Pi/2","Pi"};
-        JComboBox comboBox = new JComboBox(items);
+        comboBox = new JComboBox(items);
         comboBox.setFont(FONT);
         comboBox.setSelectedItem(items[1]);
         comboBox.addActionListener(this::actionPerformed);
@@ -79,9 +79,9 @@ public class MainWindow implements Const{
             graphPanel.delete(textField.getText());
             textField.setText("");
         } else if (e.getActionCommand().equals("Box")) {
-            JComboBox box = (JComboBox)e.getSource();
-            String item = (String)box.getSelectedItem();
-            graphPanel.setCell(item);
+            comboBox = (JComboBox)e.getSource();
+            String value = (String)comboBox.getSelectedItem();
+            graphPanel.setCell(value);
         }
     }
 

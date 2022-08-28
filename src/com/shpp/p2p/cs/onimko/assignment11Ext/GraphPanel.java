@@ -9,13 +9,12 @@ import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.JComponent;
+import javax.swing.*;
 
 public class GraphPanel extends JComponent implements ComponentListener, Const{
 
     /**Division in a cell*/
     int cell = 10;
-    double trigonometric = 1.0;
     /**Cell size*/
     int cellSize;
     /**Number of pixels per division*/
@@ -53,19 +52,17 @@ public class GraphPanel extends JComponent implements ComponentListener, Const{
      */
     protected void delete(String formula){
         charts.remove(formula);
+        colorCharts.remove(formula);
         this.repaint();
     }
 
     protected void create(String formula){
         if (formula == null || formula.equals("")) return;
-        if (formula.contains("sin") || formula.contains("cos") )
-            trigonometric = 180;
-        else trigonometric = 1;
         ArrayList<MyPoint> dataForChart = new ArrayList<>();
         double y;
         for (int x = -cell*NUMBER_DIV/2; x <= cell*NUMBER_DIV/2; x++) {
             try {
-                y =  calk.getResult(new String[]{formula,"x="+x})*trigonometric;
+                y =  calk.getResult(new String[]{formula,"x="+x});
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 continue;
@@ -92,6 +89,24 @@ public class GraphPanel extends JComponent implements ComponentListener, Const{
         drawGrid(g);
         drawAxis(g);
         drawGraph(g);
+        drawHistory(g);
+    }
+
+    /**
+     * Method draws history of charts.
+     * @param g the Graphics
+     */
+    private void drawHistory(Graphics g) {
+        g.setFont(FONT);
+        int x = cellSize*NUMBER_DIV+FONT.getSize()*2;
+        int y = FONT.getSize()*2;
+        g.drawString("History of charts:",x,y);
+        for (String f:colorCharts.keySet()){
+            g.setColor(COLORS[colorCharts.get(f)]);
+            g.drawLine(x,y+=FONT.getSize()*2,getWidth() - FONT.getSize()*2,y);
+            g.drawString("y = "+f,x,y);
+        }
+
     }
 
     /**

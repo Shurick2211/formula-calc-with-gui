@@ -26,7 +26,10 @@ public interface Const {
 
     /** Colors for graphs lines */
     Color[] COLORS =
-            {Color.BLUE, Color.RED, Color.MAGENTA, Color.GREEN};
+            {Color.BLUE, Color.RED, Color.MAGENTA, Color.GREEN, Color.DARK_GRAY};
+
+    /**Items for comboBox*/
+    String [] items ={"1","10","100","Pi/4","Pi/2","Pi"};
 
 
 
