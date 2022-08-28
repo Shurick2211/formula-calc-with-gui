@@ -13,6 +13,8 @@ public class MainWindow implements Const{
     private final JTextField textField = new JTextField(TEXT_FIELD);
     /**Combo box with cell's division*/
     private final JComboBox comboBox = new JComboBox(items);
+    /**The main container*/
+    private  final Container mainContainer = frame.getContentPane();
     /**
      * Create the window
      */
@@ -26,20 +28,17 @@ public class MainWindow implements Const{
      * Init element of the window.
      */
     private void init() {
-        Container mainContainer = frame.getContentPane();
         mainContainer.setLayout(new BorderLayout());
         mainContainer.setBackground(Color.WHITE);
-        //add control panel
+        //add up control panel
         JPanel upPanel = new JPanel();
         upPanel.setBackground(Color.lightGray);
-
         upPanel.add(createLable("Cell:"));
         comboBox.setFont(FONT);
         comboBox.setSelectedItem(items[1]);
         comboBox.addActionListener(this::actionPerformed);
         comboBox.setActionCommand("Box");
         upPanel.add(comboBox);
-
         upPanel.add(createLable("f(x) = "));
         textField.setFont(FONT);
         textField.setActionCommand("Enter");
@@ -49,6 +48,7 @@ public class MainWindow implements Const{
         upPanel.add(createButton("Clear"));
         upPanel.add(createButton("Delete"));
         mainContainer.add(upPanel, BorderLayout.NORTH);
+
         //Add chart's panel
         mainContainer.add(graphPanel);
     }

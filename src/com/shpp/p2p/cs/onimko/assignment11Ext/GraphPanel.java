@@ -97,6 +97,7 @@ public class GraphPanel extends JComponent implements ComponentListener, Const{
      * @param g the Graphics
      */
     private void drawHistory(Graphics g) {
+        g.setColor(Color.BLACK);
         g.setFont(FONT);
         int x = cellSize*NUMBER_DIV+FONT.getSize()*2;
         int y = FONT.getSize()*2;
