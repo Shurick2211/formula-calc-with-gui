@@ -22,6 +22,10 @@ public class GraphPanel extends JComponent implements ComponentListener, Const{
     double pixel;
     /**Storage of chart*/
     Map<String, ArrayList<MyPoint>> charts= new HashMap<>();
+    /**Storage of colors for charts*/
+    Map<String, Integer> colorCharts = new HashMap<>();
+    /**The counter*/
+    int count = 0;
     /**Font for axis*/
     Font font = new Font("Verdana",Font.ITALIC,8);
 
@@ -29,7 +33,7 @@ public class GraphPanel extends JComponent implements ComponentListener, Const{
         int x, y, oX=0, oY=0;
         for (String chart:charts.keySet())
             for (MyPoint point:charts.get(chart)){
-                g.setColor(Color.RED);
+                g.setColor(COLORS[colorCharts.get(chart)]);
                 x = (int) (point.getX() * pixel + pixel * NUMBER_DIV / 2 * cell);
                 y = (int) (pixel * NUMBER_DIV / 2 * cell - point.getY() * pixel);
                 if (point.getX() != - NUMBER_DIV / 2 * cell) g.drawLine(x, y, oX, oY);
@@ -49,7 +53,6 @@ public class GraphPanel extends JComponent implements ComponentListener, Const{
         if (formula.contains("sin") || formula.contains("cos") )
             trigonometric = 180;
         else trigonometric = 1;
-        Assignment11Part1 calk= new Assignment11Part1();
         ArrayList<MyPoint> dataForChart = new ArrayList<>();
         double y;
         for (int x = -cell*NUMBER_DIV/2; x <= cell*NUMBER_DIV/2; x++) {
@@ -61,7 +64,12 @@ public class GraphPanel extends JComponent implements ComponentListener, Const{
             }
             dataForChart.add(new MyPoint(x, y));
         }
+        if (charts.get(formula) == null) {
+            colorCharts.put(formula,count%COLORS.length);
+            count++;
+        }
         charts.put(formula,dataForChart);
+
         this.repaint();
     }
 
@@ -131,6 +139,8 @@ public class GraphPanel extends JComponent implements ComponentListener, Const{
 
     public void clear() {
         charts.clear();
+        colorCharts.clear();
+        count = 0;
         this.repaint();
     }
 

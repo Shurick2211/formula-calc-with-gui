@@ -1,5 +1,7 @@
 package com.shpp.p2p.cs.onimko.assignment11Ext;
 
+import com.shpp.p2p.cs.onimko.assignment11.Assignment11Part1;
+
 import java.awt.*;
 
 public interface Const {
@@ -18,6 +20,13 @@ public interface Const {
 
     /**The font for label*/
     Font FONT = new Font("BOLD", Font.ITALIC,14);
+
+    /**The calculates for project*/
+    Assignment11Part1 calk= new Assignment11Part1();
+
+    /** Colors for graphs lines */
+    Color[] COLORS =
+            {Color.BLUE, Color.RED, Color.MAGENTA, Color.GREEN};
 
 
 
