@@ -67,6 +67,13 @@ public class Test extends Assignment11Part1 {
       Assignment11Part1.main(testArgs);
       System.out.println("---------------------------");
 
+      testArgs= new String[] {"-(3^2 * 8.12)/2 * (2.44^(-3.45))/(-2.75+11.513 * 0.7511)/3.35-5.541 * 45.058/5.3455 * 11.02+81.011^3.12/12.51-6.12 * 9^2.74-11.714+1.45 * 2.128/(0.0014 * 2.914+1.578)-12.044^27.04"};
+      Assignment11Part1.main(testArgs);
+      System.out.println("---------------------------");
+
+      testArgs= new String[] {"( 1 + 2 * 3 / 4 ^ 5 + ( -6 * 7 / ( cos ( 8 ) ^ 9 + sin ( tan ( atan ( log2 ( 10 ) ^ 11 ) / 12 ) * 13 ) + 14 - 15 * 16 ) ) ^ 17 - 18 + ( -19 ^ ( -20 ) ) * ( -21 ) + 22 ^ 23 + tan ( 24 ) - sqrt ( 25 ) - 26 + 27 ^ 28 / 29 - 30 ) / 31 ^ a + sqrt ( sqrt ( 625 ) )", "a =36"};
+      Assignment11Part1.main(testArgs);
+      System.out.println("---------------------------");
       for (int i = 1; i < 5; i++) {
         testArgs= new String[]{"a*sin(30)+b*sqrt(4)", "a=" + i, "b=" + (i + 1)};
         Assignment11Part1.main(testArgs);
