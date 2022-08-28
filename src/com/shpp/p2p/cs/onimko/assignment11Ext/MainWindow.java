@@ -31,6 +31,15 @@ public class MainWindow implements Const{
         //add control panel
         JPanel upPanel = new JPanel();
         upPanel.setBackground(Color.lightGray);
+
+        String [] items ={"1","10","100","Pi/4","Pi/2","Pi"};
+        JComboBox comboBox = new JComboBox(items);
+        comboBox.setFont(FONT);
+        comboBox.setSelectedItem(items[1]);
+        comboBox.addActionListener(this::actionPerformed);
+        comboBox.setActionCommand("Box");
+        upPanel.add(comboBox);
+
         JLabel label = new JLabel("f(x) = ");
         label.setFont(FONT);
         upPanel.add(label);
@@ -41,6 +50,9 @@ public class MainWindow implements Const{
         upPanel.add(createButton("Create"));
         upPanel.add(createButton("Clear"));
         upPanel.add(createButton("Delete"));
+
+
+
         mainContainer.add(upPanel, BorderLayout.NORTH);
         //Add chart's panel
         mainContainer.add(graphPanel);
@@ -67,6 +79,10 @@ public class MainWindow implements Const{
         } else if (e.getActionCommand().equals("Delete")) {
             graphPanel.delete(textField.getText());
             textField.setText("");
+        } else if (e.getActionCommand().equals("Box")) {
+            JComboBox box = (JComboBox)e.getSource();
+            String item = (String)box.getSelectedItem();
+            graphPanel.setCell(item);
         }
     }
 

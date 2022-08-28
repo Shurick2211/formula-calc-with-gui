@@ -19,7 +19,6 @@ public interface Const {
     /**The font for label*/
     Font FONT = new Font("BOLD", Font.ITALIC,14);
 
-    /**Division in a cell*/
-    int cell = 10;
+
 
 }
