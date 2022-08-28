@@ -16,7 +16,7 @@ public interface Const {
     int NUMBER_DIV = 20;
 
     /**Size of text field*/
-    int TEXT_FIELD = 40;
+    int TEXT_FIELD = 30;
 
     /**The font for label*/
     Font FONT = new Font("BOLD", Font.ITALIC,14);

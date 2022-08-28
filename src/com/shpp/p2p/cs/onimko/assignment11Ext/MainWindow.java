@@ -32,6 +32,7 @@ public class MainWindow implements Const{
         JPanel upPanel = new JPanel();
         upPanel.setBackground(Color.lightGray);
 
+        upPanel.add(createLable("Cell:"));
         String [] items ={"1","10","100","Pi/4","Pi/2","Pi"};
         JComboBox comboBox = new JComboBox(items);
         comboBox.setFont(FONT);
@@ -40,9 +41,7 @@ public class MainWindow implements Const{
         comboBox.setActionCommand("Box");
         upPanel.add(comboBox);
 
-        JLabel label = new JLabel("f(x) = ");
-        label.setFont(FONT);
-        upPanel.add(label);
+        upPanel.add(createLable("f(x) = "));
         textField.setFont(FONT);
         textField.setActionCommand("Enter");
         textField.addActionListener(this::actionPerformed);
@@ -95,6 +94,17 @@ public class MainWindow implements Const{
         JButton button = new JButton(name);
         button.addActionListener(this::actionPerformed);
         return button;
+    }
+
+    /**
+     * Method create a label with message.
+     * @param msg the message
+     * @return JLabel
+     */
+    private JLabel createLable(String msg) {
+        JLabel label = new JLabel(msg);
+        label.setFont(FONT);
+        return label;
     }
 
 }
