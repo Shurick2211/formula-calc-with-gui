@@ -114,7 +114,7 @@ public class GraphPanel extends JComponent implements ComponentListener, Const{
 
     @Override
     public void componentResized(ComponentEvent e) {
-        update(this.getGraphics());
+        this.repaint();
     }
 
     @Override
@@ -144,5 +144,6 @@ public class GraphPanel extends JComponent implements ComponentListener, Const{
             case "Pi/4" -> this.cell = 45;
         }
         this.repaint();
+        charts.keySet().forEach(this::create);
     }
 }
