@@ -130,9 +130,9 @@ public class Assignment11Part1 {
     for (String o:operation)
       while (formula.contains(o)){
         index = formula.indexOf(o);
-        if (o.equals("/") && nums.get(index+1) == 0.0) throw new Exception("Can't divide by zero");
+        if (o.equals("/") && nums.get(index+1) == 0.0) throw new ArithmeticException("Can't divide by zero");
         if (o.equals("^") && nums.get(index) == 0.0 && nums.get(index+1) < 0.0)
-          throw new Exception("Can't raise zero to a negative power");
+          throw new ArithmeticException("Can't raise zero to a negative power");
         nums.add(index, Operation.ACTIONS.get(formula.charAt(index)).apply(nums.get(index),nums.get(index+1)));
         nums.remove(index + 1);
         if (index + 2 <= nums.size()) nums.remove(index +1);
@@ -162,9 +162,9 @@ public class Assignment11Part1 {
       }
       if (indexEnd-indexStart == 1 && formula.charAt(indexStart-1) == '@') {
         if (functions.get(Validation.counter(formula,'@')-1).equals("sqrt") && temp.get(0) < 0.0)
-          throw new Exception("Can't get root of a negative number");
+          throw new ArithmeticException("Can't get root of a negative number");
         if (functions.get(Validation.counter(formula,'@')-1).startsWith("log") && temp.get(0) < 0.0)
-          throw new Exception("Can't get log of a negative number");
+          throw new ArithmeticException("Can't get log of a negative number");
         nums.add(tmp, Operation.FUNCTIONS.get(functions.get(Validation.counter(formula,'@')-1)).calculate(temp.get(0)));
         indexStart--;
       }

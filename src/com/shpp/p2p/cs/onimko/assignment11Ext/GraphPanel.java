@@ -63,9 +63,12 @@ public class GraphPanel extends JComponent implements ComponentListener, Const{
         for (int x = -cell*NUMBER_DIV/2; x <= cell*NUMBER_DIV/2; x++) {
             try {
                 y =  calk.getResult(new String[]{formula,"x="+x});
-            } catch (Exception e) {
+            } catch (ArithmeticException e) {
                 System.out.println(e.getMessage());
                 continue;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                return;
             }
             dataForChart.add(new MyPoint(x, y));
         }
