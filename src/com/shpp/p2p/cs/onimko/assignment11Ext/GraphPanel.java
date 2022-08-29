@@ -1,15 +1,12 @@
 package com.shpp.p2p.cs.onimko.assignment11Ext;
 
-import com.shpp.p2p.cs.onimko.assignment11.Assignment11Part1;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.*;
 
 public class GraphPanel extends JComponent implements ComponentListener, Const{
 
@@ -39,7 +36,7 @@ public class GraphPanel extends JComponent implements ComponentListener, Const{
                 g.setColor(COLORS[colorCharts.get(chart)]);
                 x = (int) (point.getX() * pixel + pixel * NUMBER_DIV / 2 * cell);
                 y = (int) (pixel * NUMBER_DIV / 2 * cell - point.getY() * pixel);
-                if (point.getX() != -NUMBER_DIV / 2 * cell) g.drawLine(x, y, oX, oY);
+                if (point.getX() != (-NUMBER_DIV / 2 * cell)) g.drawLine(x, y, oX, oY);
                 oX = x;
                 oY = y;
             }
@@ -83,7 +80,7 @@ public class GraphPanel extends JComponent implements ComponentListener, Const{
 
     /**
      * Method for drawing.
-     * @param g
+     * @param g the Graphics
      */
     @Override
     public void paint(Graphics g) {
