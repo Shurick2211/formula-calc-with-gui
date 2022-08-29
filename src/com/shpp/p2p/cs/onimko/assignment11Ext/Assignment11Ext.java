@@ -1,7 +1,5 @@
 package com.shpp.p2p.cs.onimko.assignment11Ext;
 
-import javax.swing.*;
-
 public class Assignment11Ext {
 
     /**
@@ -12,5 +10,4 @@ public class Assignment11Ext {
        MainWindow window = new MainWindow();
        window.show();
     }
-
 }

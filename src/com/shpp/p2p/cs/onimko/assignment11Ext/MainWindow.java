@@ -15,6 +15,14 @@ public class MainWindow implements Const{
     private final JComboBox comboBox = new JComboBox(items);
     /**The main container*/
     private  final Container mainContainer = frame.getContentPane();
+
+    /**The text field*/
+    private final JTextField formula = new JTextField(TEXT_FIELD);
+    /**The text field*/
+    private final JTextField variables = new JTextField(TEXT_FIELD);
+
+    final JTabbedPane tabbedPane = new JTabbedPane();
+
     /**
      * Create the window
      */
@@ -28,9 +36,15 @@ public class MainWindow implements Const{
      * Init element of the window.
      */
     private void init() {
-        mainContainer.setLayout(new BorderLayout());
-        mainContainer.setBackground(Color.WHITE);
-        //add up control panel
+        tabbedPane.setBackground(Color.WHITE);
+        mainContainer.add(tabbedPane);
+        JPanel charts = new JPanel();
+        charts.setLayout(new BorderLayout());
+        JPanel calc = new JPanel();
+        charts.setLayout(new BorderLayout());
+        tabbedPane.addTab("Charts",charts);
+        tabbedPane.addTab("Calculate",calc);
+        //add up control panel charts
         JPanel upPanel = new JPanel();
         upPanel.setBackground(Color.lightGray);
         upPanel.add(createLable("Cell:"));
@@ -47,10 +61,21 @@ public class MainWindow implements Const{
         upPanel.add(createButton("Create"));
         upPanel.add(createButton("Clear"));
         upPanel.add(createButton("Delete"));
-        mainContainer.add(upPanel, BorderLayout.NORTH);
+        charts.add(upPanel, BorderLayout.NORTH);
+        //Add chart's panel charts
+        charts.add(graphPanel);
+        //up panel calculate
+        JPanel upCalc = new JPanel();
+        upCalc.add(createLable("Formula:"));
+        upCalc.add(formula);
+        calc.add(upCalc,BorderLayout.NORTH);
+        //center panel calculate
+        JPanel center = new JPanel();
+        center.add(createLable("Enter variables key=value and space between pair"));
+        center.add(createLable("Variables:"));
+        center.add(variables);
+        calc.add(center,BorderLayout.CENTER);
 
-        //Add chart's panel
-        mainContainer.add(graphPanel);
     }
 
     /**
@@ -95,7 +120,7 @@ public class MainWindow implements Const{
      * @param msg the message
      * @return JLabel
      */
-    private JLabel createLable(String msg) {
+    private static JLabel createLable(String msg) {
         JLabel label = new JLabel(msg);
         label.setFont(FONT);
         return label;
