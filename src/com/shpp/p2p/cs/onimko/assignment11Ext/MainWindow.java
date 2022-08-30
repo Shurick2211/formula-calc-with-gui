@@ -20,7 +20,7 @@ public class MainWindow implements Const{
     /**The text field*/
     private final JTextField variables = new JTextField(TEXT_FIELD);
     /**The text field*/
-    private final JLabel result = createLable("");
+    private final JTextArea result = new JTextArea(3,TEXT_FIELD*2);
 
     /**
      * Create the window
@@ -94,10 +94,11 @@ public class MainWindow implements Const{
         calc.add(center,BorderLayout.CENTER);
         //bottom panel for result
         JPanel bottom = new JPanel();
+        JScrollPane scrollPane = new JScrollPane(result,
+                JScrollPane.VERTICAL_SCROLLBAR_NEVER,
+                JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         bottom.setBackground(Color.WHITE);
-
-
-        bottom.add(result);
+        bottom.add(scrollPane);
         calc.add(bottom,BorderLayout.SOUTH);
     }
 
@@ -130,21 +131,22 @@ public class MainWindow implements Const{
         }
     }
 
+    /**
+     * Method for print the result of calculation.
+     */
     private void calculate() {
         ArrayList<String> args = new ArrayList<>();
-        String formula = this.formula.getText();
+        String formula = this.formula.getText().replaceAll(" ", "");
         String vars = this.variables.getText();
-        String error;
         if (!formula.isEmpty()) {
             args.add(formula);
             if (!vars.isEmpty()) args.addAll(Arrays.asList(vars.split(" ")));
         }
         try {
-            String text = formula + " = " + CALK.getResult(args.toArray(String[]::new));
-            if (!vars.isEmpty()) text +="     Where: " + vars;
+            String text = formula + " = " + String.format("%.5f",CALK.getResult(args.toArray(String[]::new)));
             result.setText(text);
+            if (!vars.isEmpty()) result.append("\nWhere: " + vars);
         } catch (Exception e) {
-            e.printStackTrace();
             result.setText(e.getMessage());
         }
     }
@@ -170,5 +172,4 @@ public class MainWindow implements Const{
         label.setFont(FONT);
         return label;
     }
-
 }
