@@ -20,7 +20,7 @@ public class MainWindow implements Const{
     /**The text field*/
     private final JTextField variables = new JTextField(TEXT_FIELD);
     /**The text field*/
-    private final JTextArea result = new JTextArea(3,TEXT_FIELD*2);
+    private final JTextArea result = new JTextArea(TEXT_ARIA_ROW,TEXT_ARIA_COL);
 
     /**
      * Create the window
@@ -94,6 +94,7 @@ public class MainWindow implements Const{
         calc.add(center,BorderLayout.CENTER);
         //bottom panel for result
         JPanel bottom = new JPanel();
+        result.setFont(new Font("Bold", Font.BOLD,18));
         JScrollPane scrollPane = new JScrollPane(result,
                 JScrollPane.VERTICAL_SCROLLBAR_NEVER,
                 JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);

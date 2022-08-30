@@ -18,6 +18,11 @@ public interface Const {
     /**Size of text field*/
     int TEXT_FIELD = 30;
 
+    /**Size of text aria row*/
+    int TEXT_ARIA_ROW = 3;
+    /**Size of text aria col*/
+    int TEXT_ARIA_COL = 40;
+
     /**The font for label*/
     Font FONT = new Font("BOLD", Font.ITALIC,14);
 
