@@ -22,7 +22,7 @@ public interface Const {
     Font FONT = new Font("BOLD", Font.ITALIC,14);
 
     /**The calculates for project*/
-    Assignment11Part1 calk= new Assignment11Part1();
+    Assignment11Part1 CALK = new Assignment11Part1();
 
     /** Colors for graphs lines */
     Color[] COLORS =

@@ -3,6 +3,8 @@ package com.shpp.p2p.cs.onimko.assignment11Ext;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainWindow implements Const{
     /**Window for App*/
@@ -13,15 +15,12 @@ public class MainWindow implements Const{
     private final JTextField textField = new JTextField(TEXT_FIELD);
     /**Combo box with cell's division*/
     private final JComboBox comboBox = new JComboBox(items);
-    /**The main container*/
-    private  final Container mainContainer = frame.getContentPane();
-
     /**The text field*/
-    private final JTextField formula = new JTextField(TEXT_FIELD);
+    private final JTextField formula = new JTextField(TEXT_FIELD*2);
     /**The text field*/
     private final JTextField variables = new JTextField(TEXT_FIELD);
-
-    final JTabbedPane tabbedPane = new JTabbedPane();
+    /**The text field*/
+    private final JLabel result = createLable("");
 
     /**
      * Create the window
@@ -36,15 +35,26 @@ public class MainWindow implements Const{
      * Init element of the window.
      */
     private void init() {
+        JTabbedPane tabbedPane = new JTabbedPane();
+        frame.add(tabbedPane);
         tabbedPane.setBackground(Color.WHITE);
-        mainContainer.add(tabbedPane);
         JPanel charts = new JPanel();
         charts.setLayout(new BorderLayout());
         JPanel calc = new JPanel();
-        charts.setLayout(new BorderLayout());
+        calc.setLayout(new BorderLayout());
         tabbedPane.addTab("Charts",charts);
         tabbedPane.addTab("Calculate",calc);
-        //add up control panel charts
+        chartsTab(charts);
+        calcTab(calc);
+
+    }
+
+    /**
+     * Method creates panel with charts
+     * @param charts the parent's panel
+     */
+    private void chartsTab(JPanel charts) {
+        //control panel
         JPanel upPanel = new JPanel();
         upPanel.setBackground(Color.lightGray);
         upPanel.add(createLable("Cell:"));
@@ -64,6 +74,13 @@ public class MainWindow implements Const{
         charts.add(upPanel, BorderLayout.NORTH);
         //Add chart's panel charts
         charts.add(graphPanel);
+    }
+
+    /**
+     * Method creates panel for calculating.
+     * @param calc the parent's panel
+     */
+    private void calcTab(JPanel calc) {
         //up panel calculate
         JPanel upCalc = new JPanel();
         upCalc.add(createLable("Formula:"));
@@ -71,11 +88,17 @@ public class MainWindow implements Const{
         calc.add(upCalc,BorderLayout.NORTH);
         //center panel calculate
         JPanel center = new JPanel();
-        center.add(createLable("Enter variables key=value and space between pair"));
-        center.add(createLable("Variables:"));
+        center.add(createLable("Enter variables key=value and space between pair:"));
         center.add(variables);
+        center.add(createButton("Calculate"));
         calc.add(center,BorderLayout.CENTER);
+        //bottom panel for result
+        JPanel bottom = new JPanel();
+        bottom.setBackground(Color.WHITE);
 
+
+        bottom.add(result);
+        calc.add(bottom,BorderLayout.SOUTH);
     }
 
     /**
@@ -101,6 +124,28 @@ public class MainWindow implements Const{
             textField.setText("");
         } else if (e.getActionCommand().equals("Box")) {
             graphPanel.setCell(comboBox.getSelectedItem().toString());
+        }
+        if (e.getActionCommand().equals("Calculate")) {
+            calculate();
+        }
+    }
+
+    private void calculate() {
+        ArrayList<String> args = new ArrayList<>();
+        String formula = this.formula.getText();
+        String vars = this.variables.getText();
+        String error;
+        if (!formula.isEmpty()) {
+            args.add(formula);
+            if (!vars.isEmpty()) args.addAll(Arrays.asList(vars.split(" ")));
+        }
+        try {
+            String text = formula + " = " + CALK.getResult(args.toArray(String[]::new));
+            if (!vars.isEmpty()) text +="     Where: " + vars;
+            result.setText(text);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setText(e.getMessage());
         }
     }
 
